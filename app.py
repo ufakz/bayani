@@ -4,6 +4,9 @@ from pypdf import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
+from langchain.chat_models import ChatOpenAI
+from langchain.memory import ConversationBufferMemory
+from langchain.chains import ConversationalRetrievalChain
 
 def get_pdf_text(pdf_docs):
     text = ""
@@ -32,9 +35,24 @@ def get_vector_store(text_chunks):
 
     return vectorstore
 
+def get_conversation_chain(vector_store):
+    llm = ChatOpenAI()
+    memory = ConversationBufferMemory(memory_key='chat_history')
+    conversation_chain = ConversationalRetrievalChain.from_llm(
+        llm=llm,
+        retriever=vector_store.as_retriever(),
+        memory=memory
+    )
+
+    return conversation_chain
+
+
 def main():
     load_dotenv()
     st.set_page_config(page_title="Chat with multiple PDFs",page_icon=":books:")
+
+    if "conversation" not in st.session_state:
+        st.session_state.conversation = None
 
     st.header("Chat with multiple PDFs :books:")
     st.text_input("Ask a question about your documents")
@@ -55,7 +73,7 @@ def main():
                 vector_store = get_vector_store(text_chunks)
 
                 # create converstation chain
-                conversation = get_conversation_chain(vector_store)
+                st.session_state.conversation = get_conversation_chain(vector_store)
             
 
 
