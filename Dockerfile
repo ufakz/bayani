@@ -2,8 +2,7 @@ FROM python:3.11.5-slim
 
 WORKDIR /app
 COPY . ./
-ENV OPENAI_API_KEY=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
-
+ENV OPENAI_API_KEY=<>
 
 RUN apt-get update && apt-get install -y \
     build-essential \
