@@ -98,7 +98,5 @@ def main():
                 st.session_state.conversation = get_conversation_chain(vector_store)
             
 
-
-
 if __name__ == '__main__':
     main()
