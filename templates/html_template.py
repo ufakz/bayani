@@ -1,70 +1,44 @@
 css = '''
 <style>
 .chat-message {
-    padding: 1.5rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    padding: 1.5rem; border-radius: 0.5rem; margin-bottom: 1rem; display: flex
 }
-
 .chat-message.user {
-    background-color: #2b313e;
+    background-color: #2b313e
 }
-
 .chat-message.bot {
-    background-color: #475063;
+    background-color: #475063
 }
-
 .chat-message .avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 1rem;
-    flex-shrink: 0;
+  width: 20%;
 }
-
-.chat-message .content {
-    flex-grow: 1;
-    overflow-x: auto;
+.chat-message .avatar img {
+  max-width: 78px;
+  max-height: 78px;
+  border-radius: 50%;
+  object-fit: cover;
 }
-
-.source-info {
-    font-size: 0.8rem;
-    color: #a8a8a8;
-    margin-top: 0.5rem;
+.chat-message .message {
+  width: 80%;
+  padding: 0 1.5rem;
+  color: #fff;
 }
-
-.usage-stats {
-    font-size: 0.8rem;
-    color: #a8a8a8;
-    margin-top: 1rem;
-    padding: 0.5rem;
-    background-color: #2b313e;
-    border-radius: 0.3rem;
-}
-</style>
 '''
 
 bot_template = '''
 <div class="chat-message bot">
     <div class="avatar">
-        <img src="https://i.ibb.co/cN0nmSj/Screenshot-2023-05-28-at-02-37-21.png">
+        <img src="https://www.iconarchive.com/download/i143626/iconarchive/robot-avatar/Blue-2-Robot-Avatar.256.png" style="max-height: 78px; max-width: 78px; border-radius: 50%; object-fit: cover;">
     </div>
-    <div class="content">
-        {{MSG}}
-    </div>
+    <div class="message">{{MSG}}</div>
 </div>
 '''
 
 user_template = '''
 <div class="chat-message user">
+    <div class="message">{{MSG}}</div>
     <div class="avatar">
-        <img src="https://i.ibb.co/rdZC7LZ/Photo-logo-1.png">
-    </div>
-    <div class="content">
-        {{MSG}}
-    </div>
+        <img src="https://cdn.pixabay.com/photo/2020/07/01/12/58/icon-5359553_1280.png">
+    </div>    
 </div>
 '''
