@@ -5,7 +5,7 @@ load_dotenv()
 
 class Settings:
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-    DEFAULT_MODEL = "gpt-4"
+    DEFAULT_MODEL = "gpt-4o-mini"
     TEMPERATURE = 0.7
     
     CHUNK_SIZE = 1000
