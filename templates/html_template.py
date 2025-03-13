@@ -23,6 +23,56 @@ css = '''
   padding: 0 1.5rem;
   color: #fff;
 }
+
+/* Add styles for chat container */
+[data-testid="stVerticalBlock"] {
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-bottom: 100px;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;     /* Firefox */
+}
+
+/* Hide Webkit scrollbar (Chrome, Safari, newer Edge) */
+[data-testid="stVerticalBlock"]::-webkit-scrollbar {
+    display: none;
+}
+
+/* Updated input container styles */
+[data-testid="stTextInput"] {
+    position: fixed;
+    bottom: 3rem;
+    padding: 1rem;
+    z-index: 100;
+    right: 2rem;
+}
+
+/* Target Streamlit's main content area */
+.main {
+    padding-bottom: 100px;
+}
+
+/* Adjust input position based on sidebar state */
+.sidebar-collapsed [data-testid="stTextInput"] {
+    left: 3rem;
+}
+
+[data-testid="stSidebar"][aria-expanded="true"] ~ [data-testid="stTextInput"] {
+    left: calc(1rem);  /* sidebar width (24rem) + padding */
+}
+
+[data-testid="stSidebar"][aria-expanded="false"] ~ [data-testid="stTextInput"] {
+    left: calc(1rem);  /* collapsed width + padding */
+}
+
+/* Make sure input background extends full width */
+.stTextInput > div {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+</style>
 '''
 
 bot_template = '''

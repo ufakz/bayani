@@ -17,11 +17,12 @@ def initialize_session_state():
     if "language" not in st.session_state:
         st.session_state.language = Settings.DEFAULT_LANGUAGE
 
-def handle_user_input(user_question):
+def handle_user_input(user_question, input_container):
     with get_openai_callback() as cb:
         response = st.session_state.conversation({
             'question': user_question
         })
+        
         
         st.session_state.chat_history = response['chat_history']
         st.session_state.total_tokens = cb.total_tokens
@@ -37,11 +38,13 @@ def handle_user_input(user_question):
                     st.markdown(f"**{LanguageConfig.get_ui_text(st.session_state.language, 'view_sources')}:**")
                     st.markdown(doc.page_content)
         
-        for i, message in enumerate(reversed(st.session_state.chat_history)):
+        for i, message in enumerate(st.session_state.chat_history):
             if i % 2 == 0:
                 st.write(user_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
             else:
                 st.write(bot_template.replace("{{MSG}}", message.content), unsafe_allow_html=True)
+        
+        
 
 def main():
     settings = Settings()
@@ -101,17 +104,29 @@ def main():
             else:
                 st.warning(LanguageConfig.get_ui_text(st.session_state.language, "upload_warning"))
     
-    st.header(f"Talk to your documents {settings.APP_ICON}")
+    # Main content area
+    st.header(f"Bayani {settings.APP_ICON}")
     
-    user_question = st.text_input(
-        LanguageConfig.get_ui_text(st.session_state.language, "ask_question")
-    )
+    # Create a container for chat history with fixed height and scrolling
+    chat_container = st.container()
     
-    if user_question:
-        if st.session_state.conversation is None:
-            st.warning(LanguageConfig.get_ui_text(st.session_state.language, "upload_first"))
-        else:
-            handle_user_input(user_question)
+    # Create a container for the input box at the bottom
+    input_container = st.container()
+    
+    # Place the input box at the bottom
+    with input_container:
+        user_question = st.text_input(
+            LanguageConfig.get_ui_text(st.session_state.language, "ask_question"),
+            key="user_input"
+        )
+    
+    # Display chat history in scrollable container
+    with chat_container:
+        if user_question:
+            if st.session_state.conversation is None:
+                st.warning(LanguageConfig.get_ui_text(st.session_state.language, "upload_first"))
+            else:
+                handle_user_input(user_question)
 
 if __name__ == '__main__':
     main()
