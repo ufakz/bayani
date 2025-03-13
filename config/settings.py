@@ -11,7 +11,7 @@ class Settings:
     CHUNK_SIZE = 1000
     CHUNK_OVERLAP = 200
     
-    APP_TITLE = "Enhanced PDF Chat"
+    APP_TITLE = "Bayani"
     APP_ICON = ":books:"
     
     CHAT_LOGS_DIR = "chat_logs"
