@@ -59,7 +59,6 @@ pydeck==0.8.0
 Pygments==2.16.1
 Pympler==1.0.1
 pypdf==3.16.1
-python==3.10
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 pytz==2023.3.post1
