@@ -17,7 +17,7 @@ def initialize_session_state():
     if "language" not in st.session_state:
         st.session_state.language = Settings.DEFAULT_LANGUAGE
 
-def handle_user_input(user_question, input_container):
+def handle_user_input(user_question):
     with get_openai_callback() as cb:
         response = st.session_state.conversation({
             'question': user_question
